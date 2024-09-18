@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const Navbar = () => {
   return (
     <nav className="bg-gray-800 text-white p-4">
-      <ul className="flex space-x-4">
+      <ul className="flex justify-center space-x-4">
         <li>
           <Link to="/add-customer" className="block py-2 px-4 hover:bg-gray-700 rounded">
             Add New Customer
@@ -15,7 +15,6 @@ const Navbar = () => {
             View Customers
           </Link>
         </li>
-        
       </ul>
     </nav>
   );
