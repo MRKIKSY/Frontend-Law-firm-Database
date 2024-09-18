@@ -38,7 +38,7 @@ const AddCustomer = () => {
     formData.append('pdfFile', customer.pdfFile);
 
     try {
-      await axios.post('http://localhost:5000/api/customers', formData, {
+      await axios.post('https://law-firm-management-system-1.onrender.com/api/customers', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       alert('Customer added successfully');

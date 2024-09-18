@@ -12,7 +12,7 @@ const Login = () => {
     console.log('Submitting PIN:', pin); // Debugging
 
     try {
-      const response = await axios.post('http://localhost:5000/api/pins/login', { pin });
+      const response = await axios.post('https://law-firm-management-system-1.onrender.com/api/pins/login', { pin });
       console.log('Response:', response.data); // Debugging
 
       if (response.data.success) {

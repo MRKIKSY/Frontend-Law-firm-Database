@@ -11,7 +11,7 @@ const CreatePin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/pin', { pin });
+      await axios.post('https://law-firm-management-system-1.onrender.com/api/pin', { pin });
       alert('PIN created successfully');
       setPin('');
     } catch (error) {

@@ -9,7 +9,7 @@ const CustomerDetails = () => {
   useEffect(() => {
     const fetchCustomer = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/customers/${id}`);
+        const response = await axios.get(`https://law-firm-management-system-1.onrender.com/api/customers/${id}`);
         setCustomer(response.data);
       } catch (error) {
         console.error('Error fetching customer details', error);
