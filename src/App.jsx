@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom'; // Import Navigate here
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import AddCustomer from './Pages/AddCustomer';
 import ViewCustomers from './Pages/ViewCustomers';
@@ -9,6 +9,7 @@ import Header from './components/Header';
 import Login from './Pages/Login';
 import Dashboard from './Pages/Dashboard';
 import ProtectedRoute from './components/ProtectedRoute';
+import LetterForm from './Pages/LetterForm'; // Import the LetterForm component
 
 function App() {
   return (
@@ -56,7 +57,16 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            
+            {/* Route for generating a letter */}
+            <Route
+              path="/generate-letter"
+              element={
+                <ProtectedRoute>
+                  <LetterForm />
+                </ProtectedRoute>
+              }
+            />
+
             {/* Default route to redirect to the dashboard if the user is authenticated */}
             <Route
               path="/"

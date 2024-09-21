@@ -1,26 +1,34 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 
 const CustomerDetails = () => {
-  const { id } = useParams();
+  const { id } = useParams(); // Get the customer ID from the URL
   const [customer, setCustomer] = useState(null);
+  const [loading, setLoading] = useState(true); // Add loading state
+  const [error, setError] = useState(null); // Add error state
 
   useEffect(() => {
-    const fetchCustomer = async () => {
+    const fetchCustomerDetails = async () => {
       try {
         const response = await axios.get(`https://law-firm-management-system-1.onrender.com/api/customers/${id}`);
-        setCustomer(response.data);
-      } catch (error) {
-        console.error('Error fetching customer details', error);
+        setCustomer(response.data); // Set customer data
+        setLoading(false); // Turn off loading
+      } catch (err) {
+        setError('Error fetching customer details');
+        setLoading(false);
       }
     };
 
-    fetchCustomer();
+    fetchCustomerDetails();
   }, [id]);
 
-  if (!customer) {
+  if (loading) {
     return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>; // Display error if fetching fails
   }
 
   return (
@@ -31,16 +39,14 @@ const CustomerDetails = () => {
       <p>Email: {customer.email}</p>
       <p>Address: {customer.address}</p>
       <p>Case Details: {customer.caseDetails}</p>
-      {/* <a href={`http://localhost:5000/${customer.pdfFile}`} download>Download PDF</a> 
-      
-      */}
-
-<a href={`http://localhost:5000/uploads/${customer.pdfFile}`} target="_blank" rel="noopener noreferrer">
-  View PDF
-</a>
-
+      <a href={`https://law-firm-management-system-1.onrender.com/uploads/${customer.pdfFile}`} target="_blank" rel="noopener noreferrer">
+        View PDF
+      </a>
+      <Link to={`/generate-letter`} className="bg-green-500 text-white py-2 px-4 rounded-lg ml-4">
+        Generate Letter
+      </Link>
     </div>
   );
 };
 
-export default  CustomerDetails;
+export default CustomerDetails;
