@@ -9,7 +9,8 @@ import Header from './components/Header';
 import Login from './Pages/Login';
 import Dashboard from './Pages/Dashboard';
 import ProtectedRoute from './components/ProtectedRoute';
-import LetterForm from './Pages/LetterForm'; // Import the LetterForm component
+import LetterForm from './Pages/LetterForm';
+import SendEmail from './Pages/SendEmail'; // Import the SendEmail component
 
 function App() {
   return (
@@ -57,12 +58,23 @@ function App() {
                 </ProtectedRoute>
               }
             />
+            
             {/* Route for generating a letter */}
             <Route
               path="/generate-letter"
               element={
                 <ProtectedRoute>
                   <LetterForm />
+                </ProtectedRoute>
+              }
+            />
+
+            {/* New route for sending email */}
+            <Route
+              path="/send-email/:email"
+              element={
+                <ProtectedRoute>
+                  <SendEmail />
                 </ProtectedRoute>
               }
             />
