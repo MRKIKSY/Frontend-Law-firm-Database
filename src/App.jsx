@@ -10,7 +10,9 @@ import Login from './Pages/Login';
 import Dashboard from './Pages/Dashboard';
 import ProtectedRoute from './components/ProtectedRoute';
 import LetterForm from './Pages/LetterForm';
-import SendEmail from './Pages/SendEmail'; // Import the SendEmail component
+import SendEmail from './Pages/SendEmail';
+import SendSms from './Pages/SendSms'; // Import the SendSms component
+import Notes from './Pages/Notes'; // Import the Notes component
 
 function App() {
   return (
@@ -20,10 +22,7 @@ function App() {
         <Navbar />
         <div className="content">
           <Routes>
-            {/* Unprotected route for login */}
             <Route path="/login" element={<Login />} />
-            
-            {/* Protected route for the dashboard */}
             <Route
               path="/dashboard"
               element={
@@ -32,8 +31,6 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            
-            {/* Protected routes */}
             <Route
               path="/add-customer"
               element={
@@ -58,8 +55,6 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            
-            {/* Route for generating a letter */}
             <Route
               path="/generate-letter"
               element={
@@ -69,7 +64,9 @@ function App() {
               }
             />
 
-            {/* New route for sending email */}
+<Route path="/notes" element={<ProtectedRoute><Notes /></ProtectedRoute>} />
+
+
             <Route
               path="/send-email/:email"
               element={
@@ -78,18 +75,15 @@ function App() {
                 </ProtectedRoute>
               }
             />
-
-            {/* Default route to redirect to the dashboard if the user is authenticated */}
             <Route
-              path="/"
+              path="/send-sms/:phone"
               element={
                 <ProtectedRoute>
-                  <Navigate to="/dashboard" />
+                  <SendSms />
                 </ProtectedRoute>
               }
             />
-            
-            {/* Catch-all route for undefined paths */}
+            <Route path="/" element={<ProtectedRoute><Navigate to="/dashboard" /></ProtectedRoute>} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>

@@ -9,15 +9,21 @@ const SendEmail = () => {
   const [body, setBody] = useState('');
   const [bcc, setBcc] = useState('');
   const [cc, setCc] = useState('');
-  const [senderName, setSenderName] = useState('');
+  
+  // Fixed sender name
+  const senderName = 'Finsbury Law Solicitors';
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Combine the body with the fixed text
+    const fullBody = `${body}\n\nRegards,\nFinsbury Law Solicitors`;
+
     try {
       await axios.post('https://law-firm-management-system-1.onrender.com/api/emails/send-email', {
         email,
         subject,
-        body,
+        body: fullBody,
         bcc,
         cc,
         senderName,
@@ -28,13 +34,12 @@ const SendEmail = () => {
     }
   };
   
-
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
       <div className="bg-white shadow-lg rounded-lg p-8 w-96">
         {/* Centered Heading */}
         <h2 className="text-lg font-medium text-gray-500 mb-4 text-center">
-          Send Email to:<br></br>
+          Send Email to:<br />
           <span className="font-bold text-gray-900">{email}</span>
         </h2>
 
@@ -51,8 +56,8 @@ const SendEmail = () => {
             <label className="block text-sm font-bold mb-2">Sender Name</label>
             <input
               type="text"
-              value={senderName}
-              onChange={(e) => setSenderName(e.target.value)}
+              value={senderName} // Fixed sender name
+              readOnly // Make it read-only
               className="w-full px-3 py-2 border rounded"
             />
           </div>
@@ -109,3 +114,4 @@ const SendEmail = () => {
 };
 
 export default SendEmail;
+

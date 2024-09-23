@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import ButtonLink from '../components/ButtonLink'; // Reusable button component
 
 const CustomerDetails = () => {
   const { id } = useParams();
+  const navigate = useNavigate(); // Add useNavigate
   const [customer, setCustomer] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -35,9 +36,16 @@ const CustomerDetails = () => {
         <p className="text-gray-600">{new Date(customer.dateOfBirth).toLocaleDateString()}</p>
       </div>
 
-      <div className="mb-4 p-4 bg-green-50 rounded-lg">
-        <p className="text-lg font-semibold text-gray-700">Phone:</p>
-        <p className="text-gray-600">{customer.phone}</p>
+      <div className="mb-4 p-4 bg-green-50 rounded-lg flex justify-between items-center">
+        <div>
+          <p className="text-lg font-semibold text-gray-700">Phone:</p>
+          <p className="text-gray-600">{customer.phone}</p>
+        </div>
+        <ButtonLink
+          label="Send SMS"
+          to={`/send-sms/${customer.phone}`}
+          className="text-sm text-black bg-white border border-black rounded hover:bg-gray-200 transition"
+        />
       </div>
 
       <div className="mb-4 p-4 bg-yellow-50 rounded-lg flex justify-between items-center">
@@ -56,9 +64,17 @@ const CustomerDetails = () => {
         <ButtonLink label="Generate Letter" to="/generate-letter" className="text-sm text-black bg-white border border-black rounded hover:bg-gray-200 transition" />
       </div>
 
-      <div className="mb-4 p-4 bg-pink-50 rounded-lg">
-        <p className="text-lg font-semibold text-gray-700">Case Details:</p>
-        <p className="text-gray-600">{customer.caseDetails}</p>
+      <div className="mb-4 p-4 bg-pink-50 rounded-lg flex justify-between items-center">
+        <div>
+          <p className="text-lg font-semibold text-gray-700">Case Details:</p>
+          <p className="text-gray-600">{customer.caseDetails}</p>
+        </div>
+        <button
+          onClick={() => navigate('/notes')}
+          className="text-sm text-black bg-white border border-black rounded hover:bg-gray-200 transition"
+        >
+          Customer Journal Entry
+        </button>
       </div>
 
       <div className="mb-4">
